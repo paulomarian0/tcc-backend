@@ -9,8 +9,8 @@ datasource db {
 }
 
 model User {
-  id    String     @default(uuid()) @id
-  emailPhone String  @unique
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
   name  String
-  cpfCnpj String
+  cpf String    @unique
 }

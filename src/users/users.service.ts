@@ -18,7 +18,7 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  async findById(id: string){
+  async findById(id: number){
     return await this.prisma.user.findUnique({
       where:{
         id,
@@ -26,7 +26,7 @@ export class UsersService {
     })
   }
 
-  async update(id: string, data: UserDTO) {
+  async update(id: number, data: UserDTO) {
     return await this.prisma.user.update({
       data,
       where: {
@@ -35,7 +35,7 @@ export class UsersService {
     })
   }
 
-  async delete(id: string){
+  async delete(id: number){
     return await this.prisma.user.delete({
       where:{
         id,

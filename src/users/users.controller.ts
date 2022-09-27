@@ -17,17 +17,17 @@ export class UsersController {
   }
 
   @Get(":id")
-  async findById(@Param("id") id:string){
+  async findById(@Param("id") id:number){
     return this.usersService.findById(id)
   }
 
   @Put(":id")
-  async update(@Param("id") id: string, @Body() data: UserDTO) {
+  async update(@Param("id") id: number, @Body() data: UserDTO) {
     return this.usersService.update(id, data)
   }
 
   @Delete(":id")
-  async delete(@Param("id") id: string) {
+  async delete(@Param("id") id: number) {
     return this.usersService.delete(id)
   }
 }
