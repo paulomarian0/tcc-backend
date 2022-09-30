@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
-import { UserDTO } from './user.dto';
-import { UsersService } from './users.service';
+import { ColetorDTO } from './coletor.dto';
+import { UsersService } from './coletor.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  async create(@Body() data: UserDTO) {
+  async create(@Body() data: ColetorDTO) {
     return this.usersService.create(data)
   }
 
@@ -21,8 +21,13 @@ export class UsersController {
     return this.usersService.findById(+id)
   }
 
+  @Get(":email/find")
+  async findByEmail(@Param("email") email: string) {
+    return this.usersService.findByEmail(email)
+  }
+
   @Put(":id")
-  async update(@Param("id") id: string, @Body() data: UserDTO) {
+  async update(@Param("id") id: string, @Body() data: ColetorDTO) {
     return this.usersService.update(+id, data)
   }
 

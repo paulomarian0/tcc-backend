@@ -8,9 +8,10 @@ datasource db {
   //url = "postgres://postgres:postgrespw@localhost:49153"
 }
 
-model User {
+model Coletor {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String
+  password String
   cpf String    @unique
 }
