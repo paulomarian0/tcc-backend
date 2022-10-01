@@ -3,7 +3,7 @@ import { PrismaService } from 'src/database/PrismaService';
 import { ColetorDTO } from './coletor.dto';
 
 @Injectable()
-export class UsersService {
+export class ColetorService {
 
   constructor(private prisma: PrismaService) { }
 

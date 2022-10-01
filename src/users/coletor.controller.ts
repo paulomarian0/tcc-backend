@@ -1,38 +1,38 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
 import { ColetorDTO } from './coletor.dto';
-import { UsersService } from './coletor.service';
+import { ColetorService } from './coletor.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly coletorService: ColetorService) { }
 
   @Post()
   async create(@Body() data: ColetorDTO) {
-    return this.usersService.create(data)
+    return this.coletorService.create(data)
   }
 
   @Get()
-  async findAll() {
-    return this.usersService.findAll()
+  async findAll(){
+    return this.coletorService.findAll()
   }
 
   @Get(":id")
   async findById(@Param("id") id: string) {
-    return this.usersService.findById(+id)
+    return this.coletorService.findById(+id)
   }
 
   @Get(":email/find")
   async findByEmail(@Param("email") email: string) {
-    return this.usersService.findByEmail(email)
+    return this.coletorService.findByEmail(email)
   }
 
   @Put(":id")
   async update(@Param("id") id: string, @Body() data: ColetorDTO) {
-    return this.usersService.update(+id, data)
+    return this.coletorService.update(+id, data)
   }
 
   @Delete(":id")
   async remove(@Param('id') id: string) {
-    return this.usersService.delete(+id)
+    return this.coletorService.delete(+id)
   }
 }
