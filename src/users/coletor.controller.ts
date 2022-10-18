@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
-import { ColetorDTO } from './coletor.dto';
+import { ColetorDTO } from './dto/coletor.dto';
 import { ColetorService } from './coletor.service';
 
-@Controller('users')
-export class UsersController {
+@Controller('coletor')
+export class ColetorController {
   constructor(private readonly coletorService: ColetorService) { }
 
   @Post()

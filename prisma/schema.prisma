@@ -9,9 +9,52 @@ datasource db {
 }
 
 model Coletor {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String
-  password String
-  cpf String    @unique
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  Corrida   Corrida? @relation(fields: [corridaId], references: [id])
+  corridaId Int?
+  Veiculo   Veiculo? @relation(fields: [veiculoId], references: [id])
+  veiculoId Int?
+}
+
+model Produtor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  local     Local[]
+  Corrida   Corrida? @relation(fields: [corridaId], references: [id])
+  corridaId Int?
+}
+
+model Local {
+  id          Int    @id @default(autoincrement())
+  tipoLixo    String
+  cep         String
+  estado      String
+  municipio   String
+  bairro      String
+  rua         String
+  complemento String
+
+  Produtor   Produtor? @relation(fields: [produtorId], references: [id])
+  produtorId Int?      @unique
+}
+
+model Corrida {
+  id       Int        @id @default(autoincrement())
+  horario  String
+  rota     String
+  produtor Produtor[]
+  coletor  Coletor[]
+}
+
+model Veiculo {
+  id             Int       @id @default(autoincrement())
+  modelo         String
+  placa          String
+  numeroRegistro String
+  donoVeiculo    Coletor[]
 }

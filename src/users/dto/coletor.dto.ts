@@ -4,4 +4,9 @@ export type ColetorDTO = {
   name: string
   cpf: string
   password: string
+
+
+
+  corridaId: number 
+
 }
