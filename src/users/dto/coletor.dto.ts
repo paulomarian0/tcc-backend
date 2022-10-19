@@ -1,12 +1,22 @@
-export type ColetorDTO = {
-  id: number
-  email: string
-  name: string
-  cpf: string
-  password: string
+import { IsEmail, IsNotEmpty } from "class-validator";
 
+export class ColetorDTO {
+  @IsNotEmpty()
+  id: number;
 
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 
-  corridaId: number 
+  @IsNotEmpty()
+  name: string;
 
+/*   @IsNotEmpty()
+  cpf: string; */
+
+  @IsNotEmpty()
+  password: string;
+
+  /* @IsNotEmpty()
+  corridaId: number; */
 }
