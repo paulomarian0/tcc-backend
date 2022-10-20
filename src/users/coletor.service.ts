@@ -2,17 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateColetorDTO } from './dto/create-coletor.dto';
 import { UpdateColetorDTO } from './dto/update-coletor.dto';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class ColetorService {
 
   constructor(private prisma: PrismaService) { }
 
-  async create(data: CreateColetorDTO) {
-    const user = await this.prisma.coletor.create({
-      data,
-    })
-    return user
+  async create(createUserDto: CreateColetorDTO) {
+    const data = {
+      ...createUserDto,
+      password: await bcrypt.hash(createUserDto.password, 10)
+    }
+
+    const createdUser = await this.prisma.coletor.create({data})
+
+    return data
   }
 
   async findAll() {
