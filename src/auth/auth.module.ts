@@ -3,10 +3,15 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from './strategies/local.strategy';
 import { ColetorModule } from 'src/users/coletor.module';
+import { JwtModule } from '@nestjs/jwt'
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
-  imports:[ColetorModule],
+  imports: [ColetorModule, JwtModule.register({
+    secret: process.env.JWT_SECRET,
+    signOptions:{expiresIn: '30m'}
+  })],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy]
+  providers: [AuthService, LocalStrategy, JwtStrategy]
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateColetorDTO } from './dto/create-coletor.dto';
 import { UpdateColetorDTO } from './dto/update-coletor.dto';
 import * as bcrypt from 'bcrypt'
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 
 @Injectable()
 export class ColetorService {
@@ -20,6 +21,7 @@ export class ColetorService {
     return data
   }
 
+  @UseGuards(LocalAuthGuard)
   async findAll() {
     return this.prisma.coletor.findMany();
   }
