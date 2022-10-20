@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
-import { ProdutorDTO } from './dto/produtor.dto';
+import { CreateProdutorDTO } from './dto/create-produtor.dto';
+import { UpdateProdutorDTO } from './dto/update-produtor.dto';
 import { ProdutorService } from './produtor.service';
 
 @Controller('produtor')
@@ -7,7 +8,7 @@ export class ProdutorController {
   constructor(private readonly produtorService: ProdutorService) { }
 
   @Post()
-  async create(@Body() data: ProdutorDTO) {
+  async create(@Body() data: CreateProdutorDTO) {
     return this.produtorService.create(data)
   }
 
@@ -27,7 +28,7 @@ export class ProdutorController {
   }
 
   @Put(":id")
-  async update(@Param("id") id: string, @Body() data: ProdutorDTO) {
+  async update(@Param("id") id: string, @Body() data: UpdateProdutorDTO) {
     return this.produtorService.update(+id, data)
   }
 

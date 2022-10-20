@@ -1,21 +1,15 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
 
-export class ColetorDTO {
+export class UpdateColetorDTO {
   @IsNotEmpty()
   id: number;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
 
   @IsNotEmpty()
   name: string;
 
-/*   @IsNotEmpty()
-  cpf: string; */
-
+  @IsEmail()
   @IsNotEmpty()
-  password: string;
+  email: string;
 
   /* @IsNotEmpty()
   corridaId: number; */

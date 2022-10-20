@@ -12,6 +12,7 @@ model Coletor {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  cpf       String   @unique
   password  String
   Corrida   Corrida? @relation(fields: [corridaId], references: [id])
   corridaId Int?
@@ -23,6 +24,7 @@ model Produtor {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
+  cnpj      String   @unique
   password  String
   local     Local[]
   Corrida   Corrida? @relation(fields: [corridaId], references: [id])

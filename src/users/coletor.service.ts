@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
-import { ColetorDTO } from './dto/coletor.dto';
+import { CreateColetorDTO } from './dto/create-coletor.dto';
+import { UpdateColetorDTO } from './dto/update-coletor.dto';
 
 @Injectable()
 export class ColetorService {
 
   constructor(private prisma: PrismaService) { }
 
-  async create(data: ColetorDTO) {
+  async create(data: CreateColetorDTO) {
     const user = await this.prisma.coletor.create({
       data,
     })
@@ -29,7 +30,7 @@ export class ColetorService {
       where: { email }
     })
   }
-  async update(id: number, data: ColetorDTO) {
+  async update(id: number, data: UpdateColetorDTO) {
     return await this.prisma.coletor.update({
       data,
       where: { id }

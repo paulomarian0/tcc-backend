@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
-import { ProdutorDTO } from './dto/produtor.dto';
+import { CreateProdutorDTO } from './dto/create-produtor.dto';
+import { UpdateProdutorDTO } from './dto/update-produtor.dto';
 
 @Injectable()
 export class ProdutorService {
 
   constructor(private prisma: PrismaService) { }
 
-  async create(data: ProdutorDTO) {
+  async create(data: CreateProdutorDTO) {
     const user = await this.prisma.produtor.create({
       data,
     })
@@ -29,7 +30,7 @@ export class ProdutorService {
       where: { email }
     })
   }
-  async update(id: number, data: ProdutorDTO) {
+  async update(id: number, data: UpdateProdutorDTO) {
     return await this.prisma.produtor.update({
       data,
       where: { id }
