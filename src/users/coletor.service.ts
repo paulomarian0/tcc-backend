@@ -18,7 +18,7 @@ export class ColetorService {
 
     const createdUser = await this.prisma.coletor.create({data})
 
-    return data
+    return createdUser
   }
 
   @UseGuards(LocalAuthGuard)

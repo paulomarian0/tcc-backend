@@ -9,14 +9,30 @@ export class ProdutorService {
   constructor(private prisma: PrismaService) { }
 
   async create(data: CreateProdutorDTO) {
+    const { local, ...produtor } = data
+    console.log("aaaaaaaaaaaa", local)
+    console.log(produtor)
     const user = await this.prisma.produtor.create({
-      data,
+      data: {
+        ...produtor,
+        local: {
+          create: {
+            ...local
+          }
+        }
+      },
+      include: { local: true }
+
+
     })
     return user
   }
 
   async findAll() {
-    return this.prisma.produtor.findMany();
+    return this.prisma.produtor.findMany(
+      { include: { local: true } }
+    );
+
   }
 
   async findById(id: number) {

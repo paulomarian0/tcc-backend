@@ -1,3 +1,4 @@
+import { Local } from "@prisma/client"
 import { IsEmail, IsNotEmpty } from "class-validator"
 
 export class CreateProdutorDTO {
@@ -17,5 +18,5 @@ export class CreateProdutorDTO {
   @IsNotEmpty()
   password: string
 
-  corridaId: number
+  local: Omit<Local, 'id'>
 }
