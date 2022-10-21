@@ -9,8 +9,8 @@ export class ProdutorService {
   constructor(private prisma: PrismaService) { }
 
   async create(data: CreateProdutorDTO) {
-    const { local, ...produtor } = data
-    console.log("aaaaaaaaaaaa", local)
+    const { corrida, local, ...produtor } = data
+    console.log("aaaaaaaaaaaa", corrida, "local", local)
     console.log(produtor)
     const user = await this.prisma.produtor.create({
       data: {
@@ -19,8 +19,13 @@ export class ProdutorService {
           create: {
             ...local
           }
-        }
+        },
+        
+        
       },
+      
+      
+
       include: { local: true }
 
 

@@ -9,26 +9,26 @@ datasource db {
 }
 
 model Coletor {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
-  email     String   @unique
-  cpf       String   @unique
+  email     String    @unique
+  cpf       String    @unique
   password  String
-  Corrida   Corrida? @relation(fields: [corridaId], references: [id])
   corridaId Int?
-  Veiculo   Veiculo? @relation(fields: [veiculoId], references: [id])
+  Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
   veiculoId Int?
+  Corrida   Corrida[]
 }
 
 model Produtor {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
-  email     String   @unique
-  cnpj      String   @unique
+  email     String    @unique
+  cnpj      String    @unique
   password  String
   local     Local?
-  Corrida   Corrida? @relation(fields: [corridaId], references: [id])
   corridaId Int?
+  Corrida   Corrida[]
 }
 
 model Local {
@@ -46,11 +46,13 @@ model Local {
 }
 
 model Corrida {
-  id       Int        @id @default(autoincrement())
-  horario  String
-  rota     String
-  produtor Produtor[]
-  coletor  Coletor[]
+  id         Int       @id @default(autoincrement())
+  horario    String
+  rota       String
+  coletor    Coletor?  @relation(fields: [coletorId], references: [id])
+  produtorId Int
+  coletorId  Int
+  Produtor   Produtor? @relation(fields: [produtorId], references: [id])
 }
 
 model Veiculo {
