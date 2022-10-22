@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ColetorService } from 'src/users/coletor.service';
+import { ColetorService } from 'src/coletor/coletor.service';
 import * as bcrypt from 'bcrypt'
 import { Coletor } from '@prisma/client';
 import { ColetorPayload } from './models/ColetorPayload';
