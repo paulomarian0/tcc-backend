@@ -1,4 +1,4 @@
-import { Corrida, Local, Veiculo, User } from "@prisma/client"
+import {  Local ,User } from "@prisma/client"
 import { IsEmail, IsNotEmpty } from "class-validator"
 
 export class CreateProdutorDTO {
@@ -7,9 +7,9 @@ export class CreateProdutorDTO {
 
   local: Omit<Local, 'id'>
 
-  corrida: Omit<Corrida, 'id'>
+  // corrida: Omit<Corrida, 'id'>
 
-  veiculo: Omit<Veiculo, 'id'>
+
 
   user: Omit<User, 'id'>
 }

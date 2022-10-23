@@ -12,7 +12,7 @@ export class UpdateUserDTO {
   @IsNotEmpty()
   password: string
 
-  coletor: Omit<Coletor, 'id'>
+  // coletor: Omit<Coletor, 'id'>
 
-  produtor: Omit<Produtor, 'id'>
+  // produtor: Omit<Produtor, 'id'>
 }

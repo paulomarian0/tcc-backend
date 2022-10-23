@@ -11,7 +11,9 @@ export class UserController {
   @IsPublic()
   @Post()
   async create(@Body() data: CreateUserDTO) {
-    return this.userService.create(data)
+    return this.userService.create(
+      data
+      )
   }
 
   @Get()
