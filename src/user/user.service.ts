@@ -23,11 +23,11 @@ export class UserService {
 
   @UseGuards(LocalAuthGuard)
   async findAll() {
-    return this.prisma.coletor.findMany();
+    return this.prisma.user.findMany();
   }
 
   async findById(id: number) {
-    return await this.prisma.coletor.findUnique({
+    return await this.prisma.user.findUnique({
       where: { id }
     })
   }

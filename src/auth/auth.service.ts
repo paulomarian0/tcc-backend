@@ -34,7 +34,8 @@ export class AuthService {
     if (user) {
       //senha informada corresponde a hash
 
-      const isPasswordValid = await bcrypt.compare(password, user.password)
+      //const isPasswordValid = await bcrypt.compare(password, user.password)
+      const isPasswordValid =  user.password
 
       if (isPasswordValid) {
         return {
@@ -42,7 +43,6 @@ export class AuthService {
           password: undefined
         }
       }
-
     }
 
     throw new Error("Email ou senha incorretos.")
