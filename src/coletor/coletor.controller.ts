@@ -22,11 +22,6 @@ export class ColetorController {
     return this.coletorService.findById(+id)
   }
 
-  @Get(":email/find")
-  async findByEmail(@Param("email") email: string) {
-    return this.coletorService.findByEmail(email)
-  }
-
   @Put(":id")
   async update(@Param("id") id: string, @Body() data: UpdateColetorDTO) {
     return this.coletorService.update(+id, data)

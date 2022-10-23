@@ -10,8 +10,8 @@ export class ProdutorService {
 
   async create(data: CreateProdutorDTO) {
     const { corrida, local, ...produtor } = data
-    console.log("aaaaaaaaaaaa", corrida, "local", local)
-    console.log(produtor)
+    // console.log("aaaaaaaaaaaa", corrida, "local", local)
+    // console.log(produtor)
     const user = await this.prisma.produtor.create({
       data: {
         ...produtor,
@@ -45,14 +45,9 @@ export class ProdutorService {
       where: { id }
     })
   }
-
-  async findByEmail(email: string) {
-    return await this.prisma.produtor.findUnique({
-      where: { email }
-    })
-  }
+ 
   async update(id: number, data: UpdateProdutorDTO) {
-    return await this.prisma.produtor.update({
+    return await this.prisma.user.update({
       data,
       where: { id }
     })

@@ -1,21 +1,15 @@
+import { Corrida, User, Veiculo } from "@prisma/client";
 import { IsEmail, IsNotEmpty } from "class-validator";
 
 export class CreateColetorDTO {
   @IsNotEmpty()
   id: number;
 
-  @IsNotEmpty()
-  name: string;
+  veiculo: Omit<Veiculo, 'id'>
 
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  corrida: Omit<Corrida, 'id'>
 
-  @IsNotEmpty()
-  cpf: string
-
-  @IsNotEmpty()
-  password: string;
+  user: Omit<User, 'id'>
 
   /* @IsNotEmpty()
   corridaId: number; */

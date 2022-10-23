@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateProdutorDTO } from './dto/create-produtor.dto';
 import { UpdateProdutorDTO } from './dto/update-produtor.dto';
 import { ProdutorService } from './produtor.service';
@@ -20,11 +20,6 @@ export class ProdutorController {
   @Get(":id")
   async findById(@Param("id") id: string) {
     return this.produtorService.findById(+id)
-  }
-
-  @Get(":email/find")
-  async findByEmail(@Param("email") email: string) {
-    return this.produtorService.findByEmail(email)
   }
 
   @Put(":id")

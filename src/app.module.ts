@@ -9,9 +9,10 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { LocalModule } from './local/local.module';
 import { CorridaModule } from './corrida/corrida.module';
 import { VeiculoModule } from './veiculo/veiculo.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ColetorModule, ProdutorModule, AuthModule, LocalModule, CorridaModule, VeiculoModule],
+  imports: [ColetorModule, ProdutorModule, AuthModule, LocalModule, CorridaModule, VeiculoModule, UserModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

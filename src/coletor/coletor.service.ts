@@ -13,12 +13,10 @@ export class ColetorService {
   async create(createUserDto: CreateColetorDTO) {
     const data = {
       ...createUserDto,
-      password: await bcrypt.hash(createUserDto.password, 10)
     }
 
-    const createdUser = await this.prisma.coletor.create({data})
 
-    return createdUser
+    return data
   }
 
   @UseGuards(LocalAuthGuard)
@@ -32,11 +30,6 @@ export class ColetorService {
     })
   }
 
-  async findByEmail(email: string) {
-    return await this.prisma.coletor.findUnique({
-      where: { email }
-    })
-  }
   async update(id: number, data: UpdateColetorDTO) {
     return await this.prisma.coletor.update({
       data,
