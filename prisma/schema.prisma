@@ -22,10 +22,10 @@ model User {
 }
 
 model Coletor {
-  id        Int   @id @default(autoincrement())
-  user      User? @relation(fields: [userId], references: [id])
-  userId    Int? @unique
-  pinto     Int
+  id     Int    @id @default(autoincrement())
+  user   User?  @relation(fields: [userId], references: [id])
+  userId Int?   @unique
+  teste  String
 
   // User User[]
   // corridaId Int?
@@ -65,7 +65,7 @@ model Local {
 }
 
 model Corrida {
-  id         Int      @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   // horario    String
   // rota       String
   // coletor    Coletor? @relation(fields: [coletorId], references: [id])
@@ -75,7 +75,7 @@ model Corrida {
 }
 
 model Veiculo {
-  id             Int       @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   // modelo         String
   // placa          String
   // numeroRegistro String

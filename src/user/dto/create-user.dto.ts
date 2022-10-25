@@ -1,24 +1,33 @@
 import { Coletor, Produtor } from "@prisma/client"
-import { IsEmail, IsNotEmpty } from "class-validator"
+import { IsEmail, IsJSON, IsNotEmpty, IsNumber, IsString } from "class-validator"
 
 export class CreateUserDTO {
-  @IsNotEmpty()
+
+  @IsNumber()
   id: number
 
-  @IsNotEmpty()
+  @IsString()
   name: string
 
-  @IsNotEmpty()
   @IsEmail()
   email: string
 
-  @IsNotEmpty()
+  @IsString()
   cpf: string
 
-  @IsNotEmpty()
+  @IsString()
   password: string
 
+  @IsJSON()
   coletor?: Omit<Coletor, 'id'>
 
   // produtor: Omit<Produtor, 'id'>
+
+  constructor(data: {name: string, email: string, cpf: string, password: string, coletor?:Omit<Coletor, 'id'>}) {
+    this.name = data.name
+    this.email = data.email
+    this.cpf = data.cpf
+    this.password = data.password
+    this.coletor = data.coletor
+   }
 }

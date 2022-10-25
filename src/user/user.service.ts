@@ -8,13 +8,11 @@ import { PrismaService } from 'src/database/PrismaService';
 @Injectable()
 export class UserService {
   
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDTO) {
 
     const {coletor, ...user} = createUserDto
-    
-    coletor.pinto = +coletor.pinto
     
     const data = {
       ...user,
