@@ -7,7 +7,7 @@ export class CreateProdutorDTO {
 
   local: Omit<Local, 'id'>
 
-  // corrida: Omit<Corrida, 'id'>
+//  corrida: Omit<Corrida, 'id'>
 
 
 

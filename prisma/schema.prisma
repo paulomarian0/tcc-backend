@@ -15,7 +15,7 @@ model User {
   cpf      String   @unique
   password String
   coletor  Coletor?
-  // Produtor Produtor[]
+  produtor Produtor?
 
   // Produtor   Produtor? @relation(fields: [produtorId], references: [id])
   // produtorId Int?
@@ -39,13 +39,14 @@ model Coletor {
 
 model Produtor {
   id        Int    @id @default(autoincrement())
-  local     Local?
-  // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  veiculoId Int?
-  corridaId Int?
+  // local     Local?
+  // // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
+  // veiculoId Int?
+  // corridaId Int?
   // Corrida   Corrida[]
-  // User      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
+  teste String
+  user   User?  @relation(fields: [userId], references: [id])
+  userId Int?   @unique
 
   // User User[]
 }
@@ -60,8 +61,8 @@ model Local {
   rua         String
   complemento String
 
-  Produtor   Produtor @relation(fields: [produtorId], references: [id])
-  produtorId Int      @unique
+  // Produtor   Produtor @relation(fields: [produtorId], references: [id])
+  // produtorId Int      @unique
 }
 
 model Corrida {

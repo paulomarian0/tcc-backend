@@ -8,34 +8,16 @@ export class ProdutorService {
 
   constructor(private prisma: PrismaService) { }
 
-  async create(data: CreateProdutorDTO) {
-    // const { corrida, local, ...produtor } = data
-    // // console.log("aaaaaaaaaaaa", corrida, "local", local)
-    // // console.log(produtor)
-    // const user = await this.prisma.produtor.create({
-    //   data: {
-    //     ...produtor,
-    //     local: {
-    //       create: {
-    //         ...local
-    //       }
-    //     },
-        
-        
-    //   },
-      
-      
-
-    //   include: { local: true }
-
-
-    // })
-    return "user"
+  async create(createProdutorDTO: CreateProdutorDTO) {
+    const data = {
+      ...createProdutorDTO,
+    }
+    return data
   }
 
   async findAll() {
     return this.prisma.produtor.findMany(
-      { include: { local: true } }
+      // { include: { local: true } }
     );
 
   }

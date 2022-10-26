@@ -11,13 +11,15 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDTO) {
-
-    const {coletor, ...user} = createUserDto
     
+    const {produtor, coletor, ...user} = createUserDto
+
     const data = {
       ...user,
       password: await bcrypt.hash(user.password, 10),
-      coletor: {create: {...coletor }}
+      
+      coletor: coletor && {create: {...coletor}},
+      produtor: produtor && {create: {...produtor}}
     }
 
     const createdUser = await this.prisma.user.create({data})
