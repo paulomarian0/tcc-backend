@@ -12,12 +12,24 @@ export class UserService {
 
   async create(createUserDto: CreateUserDTO) {
 
-    const {coletor, ...user} = createUserDto
     
+
+    const {produtor, coletor , ...user} = createUserDto
+
+
     const data = {
       ...user,
       password: await bcrypt.hash(user.password, 10),
-      coletor: {create: {...coletor }}
+      
+      coletor: {create: {...coletor }} || undefined,
+      produtor: {create: {...produtor}} || undefined
+    }
+
+    if(coletor==undefined || produtor==undefined){
+      console.log("vai dar merda")
+
+      coletor: {{create: {undefined}}}
+      
     }
 
     const createdUser = await this.prisma.user.create({data})
