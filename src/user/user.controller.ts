@@ -6,7 +6,7 @@ import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @IsPublic()
   @Post()
@@ -16,7 +16,7 @@ export class UserController {
 
   @IsPublic()
   @Get()
-  async findAll(){
+  async findAll() {
     return this.userService.findAll()
   }
 
@@ -32,7 +32,8 @@ export class UserController {
 
   @Put(":id")
   async update(@Param("id") id: string, @Body() data: UpdateUserDTO) {
-    return this.userService.update(+id, data)
+    return this.userService.update(+id, new UpdateUserDTO(data))
+
   }
 
   @Delete(":id")

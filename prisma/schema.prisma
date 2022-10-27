@@ -54,12 +54,8 @@ model Produtor {
 model Local {
   id          Int    @id @default(autoincrement())
   tipoLixo    String
-  cep         String
-  estado      String
-  municipio   String
-  bairro      String
-  rua         String
-  complemento String
+  latitude    String
+  longitude   String
 
   // Produtor   Produtor @relation(fields: [produtorId], references: [id])
   // produtorId Int      @unique
