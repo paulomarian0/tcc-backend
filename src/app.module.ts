@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ColetorModule } from './coletor/coletor.module';
-import { ProdutorModule } from './produtor/produtor.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
@@ -12,7 +10,7 @@ import { VeiculoModule } from './veiculo/veiculo.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ColetorModule, ProdutorModule, AuthModule, LocalModule, CorridaModule, VeiculoModule, UserModule],
+  imports: [ AuthModule, LocalModule, CorridaModule, VeiculoModule, UserModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

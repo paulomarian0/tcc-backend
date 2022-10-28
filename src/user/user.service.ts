@@ -4,6 +4,8 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt'
 import { PrismaService } from 'src/database/PrismaService';
+import { UserMapper } from './mappers/user-mapper';
+import { FetchAllteUserDTO } from './dto/fetch-all-user.dto';
 
 @Injectable()
 export class UserService {
@@ -11,44 +13,62 @@ export class UserService {
   constructor(private prisma: PrismaService) { }
 
   async create(createUserDto: CreateUserDTO) {
+    const dataMapped = await UserMapper.createToDatabase(createUserDto)
+    const { produtor, coletor, ...user } = dataMapped
 
-    const { produtor, coletor, ...user } = createUserDto
+    const payload = await this.prisma.user.create({
+      data: {
+        ...user,
+        produtor: produtor && {
+          create: {
+            local: {
+              create: {
+                ...produtor.local
+              }
+            }
+          }
+        },
+        coletor: coletor && {
+          create: {
+            ...coletor
+          }
+        }
+      },
+      include: { coletor: true, produtor: {include: {local: true}} }
+    })
 
-    const data = {
-      ...user,
-      password: await bcrypt.hash(user.password, 10),
-
-      coletor: coletor && { create: { ...coletor } },
-      produtor: produtor && { create: { ...produtor } }
-    }
-
-    const payload = await this.prisma.user.create(
-      { data, include: { coletor: true, produtor: true } }
-    )
-
-    return payload;
+    return UserMapper.fromDatabase(payload)
   }
 
   @UseGuards(LocalAuthGuard)
-  async findAll() {
-    return this.prisma.user.findMany(
-      { include: { coletor: true, produtor: true } }
+  async findAll(filters: FetchAllteUserDTO) {
+
+    const payload = await this.prisma.user.findMany(
+      
+      { where: {name: {contains: filters.name}, email: {contains: filters.email}},
+      include: { coletor: true, produtor: {include: {local: true}} } }
     );
+
+    return payload.map(UserMapper.fromDatabase);
   }
 
   async findById(id: number) {
-    return await this.prisma.user.findUnique({
-      where: { id },
-      include: { coletor: true, produtor: true }
 
+    const payload = await this.prisma.user.findUnique({
+      where: { id },
+      include: { coletor: true, produtor: {include: {local: true}} }
     })
+
+    return UserMapper.fromDatabase(payload)
   }
 
   async findByEmail(email: string) {
-    return await this.prisma.user.findUnique({
+    const payload = await this.prisma.user.findUnique({
       where: { email },
-      include: { coletor: true, produtor: true }
+      include: { coletor: true, produtor: {include: {local: true}} }
     })
+
+    return payload
   }
 
   async update(id: number, updateUserDTO: UpdateUserDTO) {
@@ -64,17 +84,17 @@ export class UserService {
     const payload = this.prisma.user.update({
       data,
       where: { id },
-      include: { coletor: true, produtor: true }
+      include: { coletor: true, produtor: {include: {local: true}} }
     })
 
     return payload;
   }
 
   async delete(id: number) {
-    return await this.prisma.user.delete({
+    const payload = await this.prisma.user.delete({
       where: { id },
-      include: { coletor: true, produtor: true }
+      include: { coletor: true, produtor: {include: {local: true}} }
     })
+    return payload;
   }
-
 }
