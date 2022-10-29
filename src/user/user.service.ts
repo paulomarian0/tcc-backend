@@ -21,8 +21,8 @@ export class UserService {
         ...user,
         produtor: produtor && {
           create: {
-            local: {
-              create: {
+            local: produtor.local && {
+               create: {
                 ...produtor.local
               }
             }
@@ -34,7 +34,7 @@ export class UserService {
           }
         }
       },
-      include: { coletor: true, produtor: {include: {local: true}} }
+      include: { coletor: true, produtor: { include: { local: true } } }
     })
 
     return UserMapper.fromDatabase(payload)
@@ -44,9 +44,11 @@ export class UserService {
   async findAll(filters: FetchAllteUserDTO) {
 
     const payload = await this.prisma.user.findMany(
-      
-      { where: {name: {contains: filters.name}, email: {contains: filters.email}},
-      include: { coletor: true, produtor: {include: {local: true}} } }
+
+      {
+        where: { name: { contains: filters.name }, email: { contains: filters.email } },
+        include: { coletor: true, produtor: { include: { local: true } } }
+      }
     );
 
     return payload.map(UserMapper.fromDatabase);
@@ -56,7 +58,7 @@ export class UserService {
 
     const payload = await this.prisma.user.findUnique({
       where: { id },
-      include: { coletor: true, produtor: {include: {local: true}} }
+      include: { coletor: true, produtor: { include: { local: true } } }
     })
 
     return UserMapper.fromDatabase(payload)
@@ -65,7 +67,7 @@ export class UserService {
   async findByEmail(email: string) {
     const payload = await this.prisma.user.findUnique({
       where: { email },
-      include: { coletor: true, produtor: {include: {local: true}} }
+      include: { coletor: true, produtor: { include: { local: true } } }
     })
 
     return payload
@@ -84,7 +86,7 @@ export class UserService {
     const payload = this.prisma.user.update({
       data,
       where: { id },
-      include: { coletor: true, produtor: {include: {local: true}} }
+      include: { coletor: true, produtor: { include: { local: true } } }
     })
 
     return payload;
@@ -93,7 +95,7 @@ export class UserService {
   async delete(id: number) {
     const payload = await this.prisma.user.delete({
       where: { id },
-      include: { coletor: true, produtor: {include: {local: true}} }
+      include: { coletor: true, produtor: { include: { local: true } } }
     })
     return payload;
   }

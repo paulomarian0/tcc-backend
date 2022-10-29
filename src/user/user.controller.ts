@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body,  Param, Delete, Put, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
@@ -12,16 +12,16 @@ export class UserController {
 
   @IsPublic()
   @Post()
-  async create(@Body() data: CreateUserDTO) {    
-   const payload=  this.userService.create(data)
+  async create(@Body() data: CreateUserDTO) {
+    const payload = this.userService.create(data)
 
-   return payload;
+    return payload;
   }
 
   @IsPublic()
   @Get()
-  async findAll(@Query() filters: FetchAllteUserDTO) {  
-    const payload =  this.userService.findAll(filters)
+  async findAll(@Query() filters: FetchAllteUserDTO) {
+    const payload = this.userService.findAll(filters)
 
     return payload;
   }
@@ -38,11 +38,11 @@ export class UserController {
 
   @Put(":id")
   async update(@Query("id") id: string, @Body() data: UpdateUserDTO) {
-    
-    
-    const payload =  await this.userService.update(+id, data)
 
-    return UserMapper.fromDatabase( payload);
+
+    const payload = await this.userService.update(+id, data)
+
+    return UserMapper.fromDatabase(payload);
 
   }
 
