@@ -13,6 +13,7 @@ export class UserController {
   @IsPublic()
   @Post()
   async create(@Body() data: CreateUserDTO) {
+    console.log(data)
     const payload = this.userService.create(data)
 
     return payload;

@@ -19,22 +19,28 @@ export class UserService {
     const payload = await this.prisma.user.create({
       data: {
         ...user,
+
         produtor: produtor && {
           create: {
-            local: produtor.local && {
+              ...produtor
+          /*   local: produtor.local && {
                create: {
                 ...produtor.local
               }
-            }
+            } */
           }
         },
+
         coletor: coletor && {
           create: {
             ...coletor
           }
         }
       },
-      include: { coletor: true, produtor: { include: { local: true } } }
+
+      // include: { coletor: true, produtor: { include: { local: true } } }
+      include: { coletor: true, produtor: true }
+
     })
 
     return UserMapper.fromDatabase(payload)
