@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLocalDto } from './dto/create-local.dto';
 import { UpdateLocalDto } from './dto/update-local.dto';
+import { PrismaService } from 'src/database/PrismaService';
 
 @Injectable()
 export class LocalService {
-  create(createLocalDto: CreateLocalDto) {
-    return 'This action adds a new local';
+
+  constructor(private prisma: PrismaService) { }
+
+  async create(createLocalDto: any) {
+
+    const payload = await this.prisma.local.create({
+      data: {
+       ...createLocalDto
+    }
+    })
+
+    return payload
   }
 
   findAll() {

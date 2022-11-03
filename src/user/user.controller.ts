@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Query, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
@@ -13,9 +13,7 @@ export class UserController {
   @IsPublic()
   @Post()
   async create(@Body() data: CreateUserDTO) {
-    console.log(data)
     const payload = this.userService.create(data)
-
     return payload;
   }
 

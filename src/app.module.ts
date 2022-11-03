@@ -12,9 +12,10 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [ AuthModule, LocalModule, CorridaModule, VeiculoModule, UserModule],
   controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_GUARD,
-    useClass: JwtAuthGuard
-  }],
+  providers: [AppService],
+  // providers: [AppService, {
+  //   provide: APP_GUARD,
+  //   useClass: JwtAuthGuard
+  // }],
 })
 export class AppModule {}
