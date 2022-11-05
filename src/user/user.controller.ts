@@ -30,9 +30,9 @@ export class UserController {
     return this.userService.findById(+id)
   }
 
-  @Get(":email/find")
-  async findByEmail(@Param("email") email: string) {
-    return this.userService.findByEmail(email)
+  @Post("/login")
+  async findByEmail(@Body() data: any) {
+    return this.userService.findByEmail(data)
   }
 
   @Put(":id")

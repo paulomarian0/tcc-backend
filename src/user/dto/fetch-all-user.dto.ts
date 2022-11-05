@@ -1,4 +1,4 @@
 export class FetchAllteUserDTO {
   name?: string
-  email?: string
+  cpf?: string
 }

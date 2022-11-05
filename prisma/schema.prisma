@@ -33,10 +33,10 @@ model Coletor {
 }
 
 model Produtor {
-  id     Int    @id @default(autoincrement())
-  local  Local?
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  id     Int     @id @default(autoincrement())
+  local  Local[]
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
   // // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
   // veiculoId Int?
   // corridaId Int?
@@ -52,7 +52,7 @@ model Local {
   latitude   Float
   longitude  Float
   produtor   Produtor @relation(fields: [produtorId], references: [id])
-  produtorId Int      @unique
+  produtorId Int
 }
 
 // model Corrida {

@@ -52,7 +52,7 @@ export class UserService {
     const payload = await this.prisma.user.findMany(
 
       {
-        where: { name: { contains: filters.name }, email: { contains: filters.email } },
+        where: { name: { contains: filters.name }, cpf: { contains: filters.cpf } },
         include: { coletor: true, produtor: { include: { local: true } } }
       }
     );
@@ -70,13 +70,15 @@ export class UserService {
     return UserMapper.fromDatabase(payload)
   }
 
-  async findByEmail(email: string) {
-    const payload = await this.prisma.user.findUnique({
-      where: { email },
-      include: { coletor: true, produtor: { include: { local: true } } }
-    })
-
-    return payload
+  async findByEmail({cpf, password}: any) {
+      const payload = await this.prisma.user.findUnique({
+        where: { cpf },
+        include: { coletor: true, produtor: { include: { local: true } } }
+      })
+      if(await bcrypt.compare(password, payload.password)){
+        return payload
+      }
+      return false
   }
 
   async update(id: number, updateUserDTO: UpdateUserDTO) {

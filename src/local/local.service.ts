@@ -19,8 +19,10 @@ export class LocalService {
     return payload
   }
 
-  findAll() {
-    return `This action returns all local`;
+  async findAll() {
+    const payload = await this.prisma.local.findMany();
+
+    return payload;
   }
 
   findOne(id: number) {
