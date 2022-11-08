@@ -25,7 +25,7 @@ export class UserController {
     return payload;
   }
 
-  @Get(":id")
+  @Get()
   async findById(@Query("id") id: string) {
     return this.userService.findById(+id)
   }
@@ -37,10 +37,7 @@ export class UserController {
 
   @Put(":id")
   async update(@Query("id") id: string, @Body() data: UpdateUserDTO) {
-
-
     const payload = await this.userService.update(+id, data)
-
     return UserMapper.fromDatabase(payload);
 
   }

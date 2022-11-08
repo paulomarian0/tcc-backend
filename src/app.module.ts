@@ -5,12 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { LocalModule } from './local/local.module';
-import { CorridaModule } from './corrida/corrida.module';
-import { VeiculoModule } from './veiculo/veiculo.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ AuthModule, LocalModule, CorridaModule, VeiculoModule, UserModule],
+  imports: [ AuthModule, LocalModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
   // providers: [AppService, {

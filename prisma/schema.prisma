@@ -5,7 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  //url = "postgres://postgres:postgrespw@localhost:49153"
 }
 
 model User {
@@ -22,28 +21,14 @@ model Coletor {
   id     Int  @id @default(autoincrement())
   user   User @relation(fields: [userId], references: [id])
   userId Int  @unique
-  // User User[]
-  // corridaId Int?
-  // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  // veiculoId Int?
-  // Corrida   Corrida[]
-  // Corrida   Corrida[]
-  // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  // veiculoId Int?
 }
 
 model Produtor {
-  id     Int     @id @default(autoincrement())
-  local  Local[]
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-  // // Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  // veiculoId Int?
-  // corridaId Int?
-  // Corrida   Corrida[]
-  // local Local?
-
-  // User User[]
+  id        Int         @id @default(autoincrement())
+  local     Local[]
+  Schedules Schedules[]
+  user      User        @relation(fields: [userId], references: [id])
+  userId    Int         @unique
 }
 
 model Local {
@@ -55,21 +40,10 @@ model Local {
   produtorId Int
 }
 
-// model Corrida {
-//   id Int @id @default(autoincrement())
-//   // horario    String
-//   // rota       String
-//   // coletor    Coletor? @relation(fields: [coletorId], references: [id])
-//   // produtorId Int
-//   // coletorId  Int
-//   //  Produtor   Produtor? @relation(fields: [produtorId], references: [id])
-// }
-
-// model Veiculo {
-//   id Int @id @default(autoincrement())
-//   // modelo         String
-//   // placa          String
-//   // numeroRegistro String
-//   // donoVeiculo    Coletor[]
-//   //Produtor       Produtor[]
-// }
+model Schedules {
+  id         Int      @id @default(autoincrement())
+  day        String
+  hour       String
+  produtor   Produtor @relation(fields: [produtorId], references: [id])
+  produtorId Int
+}
