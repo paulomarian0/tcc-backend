@@ -42,8 +42,7 @@ model Local {
 
 model Schedules {
   id         Int      @id @default(autoincrement())
-  day        String
-  hour       String
+  time       Json
   produtor   Produtor @relation(fields: [produtorId], references: [id])
   produtorId Int
 }

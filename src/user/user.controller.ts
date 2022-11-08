@@ -21,7 +21,6 @@ export class UserController {
   @Get()
   async findAll(@Query() filters: FetchAllteUserDTO) {
     const payload = this.userService.findAll(filters)
-
     return payload;
   }
 
@@ -39,7 +38,6 @@ export class UserController {
   async update(@Query("id") id: string, @Body() data: UpdateUserDTO) {
     const payload = await this.userService.update(+id, data)
     return UserMapper.fromDatabase(payload);
-
   }
 
   @Delete(":id")
