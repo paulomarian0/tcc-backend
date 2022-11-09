@@ -11,16 +11,19 @@ export class SchedulesController {
   create(@Body() createScheduleDto: CreateScheduleDto) {
     return this.schedulesService.create(createScheduleDto);
   }
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return  await this.schedulesService.findOne(+id);
+  }
+  //retorna horarios com id do produtor
+  // salva horarios com id do produtor
+  
 
   @Get()
   findAll() {
     return this.schedulesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.schedulesService.findOne(+id);
-  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateScheduleDto: UpdateScheduleDto) {

@@ -9,14 +9,15 @@ export class SchedulesService {
   constructor(private prisma: PrismaService) { }
 
   async create(createScheduleDto: CreateScheduleDto) {
-        console.log(createScheduleDto)
 
- /*    const payload = await this.prisma.schedules.create({
+    const payload = await this.prisma.schedules.create({
       data: {
+        time: createScheduleDto.time,
+        produtorId: createScheduleDto.produtorId
       }
     })
 
-    return payload */
+    return payload
 
   }
 
@@ -24,8 +25,14 @@ export class SchedulesService {
     return `This action returns all schedules`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  async findOne(id: number) {
+     const payload = await this.prisma.schedules.findFirstOrThrow({
+      where: {
+        produtorId: id
+      }
+     })
+
+     return payload
   }
 
   update(id: number, updateScheduleDto: UpdateScheduleDto) {
