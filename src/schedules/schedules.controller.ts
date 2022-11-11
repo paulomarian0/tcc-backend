@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
@@ -11,13 +11,10 @@ export class SchedulesController {
   create(@Body() createScheduleDto: CreateScheduleDto) {
     return this.schedulesService.create(createScheduleDto);
   }
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @Get()
+  async findOne(@Query('id') id: string) {
     return  await this.schedulesService.findOne(+id);
   }
-  //retorna horarios com id do produtor
-  // salva horarios com id do produtor
-  
 
   @Get()
   findAll() {
