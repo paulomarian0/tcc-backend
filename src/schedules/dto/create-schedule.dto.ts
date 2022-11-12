@@ -1,5 +1,5 @@
 export class CreateScheduleDto {
-  produtorId: number
+  localId: number
   time: {
     segunda: {
       open: boolean

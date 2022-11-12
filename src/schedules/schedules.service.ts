@@ -9,11 +9,11 @@ export class SchedulesService {
   constructor(private prisma: PrismaService) { }
 
   async create(createScheduleDto: CreateScheduleDto) {
-
+    console.log(createScheduleDto)
     const payload = await this.prisma.schedules.create({
       data: {
         time: createScheduleDto.time,
-        produtorId: createScheduleDto.produtorId
+        localId: createScheduleDto.localId
       }
     })
 
@@ -28,7 +28,7 @@ export class SchedulesService {
   async findOne(id: number) {
      const payload = await this.prisma.schedules.findFirstOrThrow({
       where: {
-        produtorId: id
+        localId: id
       }
      })
 

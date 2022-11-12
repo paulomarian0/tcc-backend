@@ -24,25 +24,25 @@ model Coletor {
 }
 
 model Produtor {
-  id        Int         @id @default(autoincrement())
-  local     Local[]
-  Schedules Schedules[]
-  user      User        @relation(fields: [userId], references: [id])
-  userId    Int         @unique
+  id     Int     @id @default(autoincrement())
+  local  Local[]
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
 }
 
 model Local {
-  id         Int      @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   tipoLixo   String
   latitude   Float
   longitude  Float
-  produtor   Produtor @relation(fields: [produtorId], references: [id])
+  produtor   Produtor    @relation(fields: [produtorId], references: [id])
   produtorId Int
+  Schedules  Schedules[]
 }
 
 model Schedules {
-  id         Int      @id @default(autoincrement())
-  time       Json
-  produtor   Produtor @relation(fields: [produtorId], references: [id])
-  produtorId Int
+  id      Int   @id @default(autoincrement())
+  time    Json
+  local   Local @relation(fields: [localId], references: [id])
+  localId Int
 }
