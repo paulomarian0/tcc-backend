@@ -1,4 +1,4 @@
-export interface ColetorPayload {
+export interface UserPayload {
   sub: number
   email: string
   name: string

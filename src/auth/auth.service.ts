@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { ColetorService } from 'src/coletor/coletor.service';
 import * as bcrypt from 'bcrypt'
-import { Coletor } from '@prisma/client';
-import { ColetorPayload } from './models/ColetorPayload';
+import { User } from '@prisma/client';
+import { UserPayload } from './models/UserPayload';
 import { JwtService } from '@nestjs/jwt';
-import { ColetorToken } from './models/ColetorToken';
+import { UserToken } from './models/UserToken';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly coletorService: ColetorService, 
-    private readonly JwtService: JwtService){}
-  
-  
-  login(user: Coletor) : ColetorToken {
+    private readonly userService: UserService,
+    private readonly JwtService: JwtService) { }
+
+
+  login(user: User): UserToken {
     //transforma user em JWT
-    const payload: ColetorPayload = {
+    const payload: UserPayload = {
       sub: user.id,
       email: user.email,
       name: user.name
@@ -29,20 +29,20 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string) {
-    const coletor = await this.coletorService.findByEmail(email)
+    const user = await this.userService.findByEmail(email)
 
-    if(coletor){
+    if (user) {
       //senha informada corresponde a hash
 
-      const isPasswordValid = await bcrypt.compare(password, coletor.password)
+      const isPasswordValid = await bcrypt.compare(password, user.password)
+      //const isPasswordValid =  user.password
 
-      if(isPasswordValid){
-        return{
-          ...coletor,
+      if (isPasswordValid) {
+        return {
+          ...user,
           password: undefined
         }
       }
-
     }
 
     throw new Error("Email ou senha incorretos.")

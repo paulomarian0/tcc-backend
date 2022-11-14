@@ -5,69 +5,44 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  //url = "postgres://postgres:postgrespw@localhost:49153"
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
-  email    String     @unique
-  cpf      String     @unique
+  email    String    @unique
+  cpf      String    @unique
   password String
-  Coletor  Coletor[]
-  Produtor Produtor[]
+  coletor  Coletor?
+  produtor Produtor?
 }
 
 model Coletor {
-  id        Int       @id @default(autoincrement())
-  corridaId Int?
-  Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  veiculoId Int?
-  Corrida   Corrida[]
-  user      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
 
 model Produtor {
-  id        Int       @id @default(autoincrement())
-  local     Local?
-  Veiculo   Veiculo?  @relation(fields: [veiculoId], references: [id])
-  veiculoId Int?
-  corridaId Int?
-  Corrida   Corrida[]
-  User      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
+  id     Int     @id @default(autoincrement())
+  local  Local[]
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
 }
 
 model Local {
-  id          Int    @id @default(autoincrement())
-  tipoLixo    String
-  cep         String
-  estado      String
-  municipio   String
-  bairro      String
-  rua         String
-  complemento String
-
-  Produtor   Produtor @relation(fields: [produtorId], references: [id])
-  produtorId Int      @unique
-}
-
-model Corrida {
-  id         Int       @id @default(autoincrement())
-  horario    String
-  rota       String
-  coletor    Coletor?  @relation(fields: [coletorId], references: [id])
+  id         Int         @id @default(autoincrement())
+  tipoLixo   String
+  latitude   Float
+  longitude  Float
+  produtor   Produtor    @relation(fields: [produtorId], references: [id])
   produtorId Int
-  coletorId  Int
-  Produtor   Produtor? @relation(fields: [produtorId], references: [id])
+  Schedules  Schedules[]
 }
 
-model Veiculo {
-  id             Int        @id @default(autoincrement())
-  modelo         String
-  placa          String
-  numeroRegistro String
-  donoVeiculo    Coletor[]
-  Produtor       Produtor[]
+model Schedules {
+  id      Int   @id @default(autoincrement())
+  time    Json
+  local   Local @relation(fields: [localId], references: [id])
+  localId Int
 }
